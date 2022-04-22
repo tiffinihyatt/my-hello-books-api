@@ -8,9 +8,14 @@ class Book:
         self.description = description
 
 books = [
-    Book(1, "Fictional Book", "A fantasy novel set in an imaginary world."),
-    Book(2, "Wheel of Time", "A fantasy novel set in an imaginary world."),
-    Book(3, "Fictional Book Title", "A fantasy novel set in an imaginary world.")
+    Book(1, "How the Word is Passed", "An honest, damning exploration of "
+    "plantations throughout the American South and the stories they hold, "
+    "from poet and former teacher Clint Smith III."),
+    Book(2, "The Misadventures of Awkward Black Girl", "A witty, charming mix "
+    "of memoir and short story that guides us through Issa Rae's adolescence "
+    "and young adulthood."),
+    Book(3, "The Prophets", "Robert Jones Jr.'s gorgeous debut novel that is "
+    "equal parts love story, historical fiction, and tragedy.")
 ]
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
