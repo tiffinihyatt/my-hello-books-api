@@ -22,6 +22,7 @@ books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
 
 @books_bp.route("", methods=["GET"])
 def handle_books():
+    # convert lines 26-34 to list comprehension
     books_response = []
     for book in books:
         books_response.append(
