@@ -31,7 +31,7 @@ def read_all_books():
 
 @books_bp.route("/<book_id>", methods=["GET"])
 def get_book_by_id(book_id):
-    book = Book.query.get(book_id)
+    book = validate_book(book_id)
 
     return {
         "id": book.id,
