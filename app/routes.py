@@ -29,6 +29,16 @@ def read_all_books():
         )
     return jsonify(books_response)
 
+@books_bp.route("/<book_id>", methods=["GET"])
+def get_book_by_id(book_id):
+    book = Book.query.get(book_id)
+
+    return {
+        "id": book.id,
+        "title": book.title,
+        "description": book.description
+    }
+
 #def validate_book(book_id):
 #    try:
 #        book_id = int(book_id)
