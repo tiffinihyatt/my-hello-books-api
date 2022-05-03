@@ -1,6 +1,6 @@
 from app import db
 from app.models.book import Book
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, make_response, request, abort
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
 
@@ -39,17 +39,18 @@ def get_book_by_id(book_id):
         "description": book.description
     }
 
-#def validate_book(book_id):
-#    try:
-#        book_id = int(book_id)
-#    except:
-#        abort(make_response({"message":f"book {book_id} invalid"}, 400))
-#
-#    for book in books:
-#        if book.id == book_id:
-#            return book
-#
-#    abort(make_response({"message":f"book {book_id} not found"}, 404))
+def validate_book(book_id):
+    try:
+        book_id = int(book_id)
+    except:
+        abort(make_response({"message":f"book {book_id} invalid"}, 400))
+
+    book = Book.query.get(book_id)
+
+    if not book:
+        abort(make_response({"message":f"book {book_id} not found"}, 404))
+    
+    return book
         
 # @books_bp.route("/<book_id>", methods=["GET"])
 # def handle_book(book_id):
