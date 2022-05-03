@@ -4,6 +4,7 @@ from flask import Blueprint, jsonify, make_response, request, abort
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
 
+# create a new book
 @books_bp.route("", methods=["POST"])
 def create_book():
     request_body = request.get_json()
@@ -54,6 +55,16 @@ def update_single_book(book_id):
     db.session.commit()
 
     return make_response(f"Book #{book_id} successfully updated")
+
+# delete one book
+@books_bp.route("/<book_id>", methods=["DELETE"])
+def delete_single_book(book_id):
+    book = validate_book(book_id)
+
+    db.session.delete(book)
+    db.session.commit()
+
+    return make_response(f"Book #{book_id} successfully deleted")
 
 
 # helper function to check for valid book
