@@ -3,6 +3,7 @@ from app.models.book import Book
 from flask import Blueprint, jsonify, make_response, request, abort
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
+authors_bp = Blueprint("authors_bp", __name__, url_prefix="/authors")
 
 # create a new book
 @books_bp.route("", methods=["POST"])
