@@ -24,7 +24,7 @@ def create_book_with_author(author_id):
 
     book = Book(
         title=request_body["title"],
-        description=request_body["description"]
+        description=request_body["description"],
         author=author
     )
     
@@ -46,6 +46,21 @@ def get_all_authors():
         })
     
     return jsonify(authors_response)
+
+# get all books by one author
+@authors_bp.route("/<author_id>/books", methods=["GET"])
+def get_all_books_by_author(author_id):
+    author = validate_author(author_id)
+    books_response = []
+
+    for book in author.books:
+        books_response.append({
+            "id": book.id,
+            "title": book.title,
+            "description": book.description
+        })
+    
+    return jsonify(books_response)
 
 # helper function to validate author
 def validate_author(author_id):
