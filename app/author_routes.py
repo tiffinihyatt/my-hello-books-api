@@ -1,5 +1,6 @@
 from app import db
 from app.models.author import Author
+from app.models.book import Book
 from flask import Blueprint, jsonify, make_response, request, abort
 
 authors_bp = Blueprint("authors_bp", __name__, url_prefix="/authors")
@@ -18,7 +19,19 @@ def create_author():
 # create a new book by a specific author
 @authors_bp.route("/<author_id>/books", methods=["POST"])
 def create_book_with_author(author_id):
-    pass
+    author = validate_author(author_id)
+    request_body = request.get_json()
+
+    book = Book(
+        title=request_body["title"],
+        description=request_body["description"]
+        author=author
+    )
+    
+    db.session.add(book)
+    db.session.commit()
+
+    return make_response(jsonify(f"Book {book.title} by {author.name} successfully created", 201))
 
 # get all authors
 @authors_bp.route("", methods=["GET"])
