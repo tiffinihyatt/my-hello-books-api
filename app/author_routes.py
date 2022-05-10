@@ -67,11 +67,11 @@ def validate_author(author_id):
     try:
         author_id = int(author_id)
     except:
-        abort(make_response({"message":f"Author {author_id} invalid"}, 400))
+        abort(make_response({"message":f"Invalid author id"}, 400))
 
     author = Author.query.get(author_id)
 
     if not author:
-        abort(make_response({"message":f"Author {author_id} not found"}, 404))
+        abort(make_response({"message":f"Author id {author_id} not found"}, 404))
     
     return author
